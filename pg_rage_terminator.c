@@ -42,11 +42,13 @@ static int interval = 5;
 /* Worker name */
 static char *worker_name = "pg_rage_terminator";
 
-#if PG_VERSION_NUM >= 90500
 /*
  * Forward declaration for main routine. Makes compiler
  * happy (-Wunused-function, __attribute__((noreturn)))
  */
+#if PG_VERSION_NUM >= 180000
+pg_noreturn PGDLLEXPORT void pg_rage_terminator_main(Datum main_arg);
+#elif PG_VERSION_NUM >= 90500
 void pg_rage_terminator_main(Datum main_arg) pg_attribute_noreturn();
 #endif
 
